@@ -1,16 +1,12 @@
-var http = require('http');
-var url = require('url');
-var querystring = require('querystring');
+var express = require("express");
 
-function accept(req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/html',
-    'Cache-Control': 'no-cache',
+var app = express();
+
+app.get("/", function(request, response){
+     
+    response.send("<h2>Привет Express!</h2>");
+
   });
-  res.write("<html><head> <meta charset=\"utf-8\"></head>")
-  res.write("Ты лох!");
 
-  res.end("</html>");
-}
-
-http.createServer(accept).listen(1234);
+app.listen(1234);
+console.log("listen on port: 1234");
