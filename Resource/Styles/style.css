@@ -1,0 +1,44 @@
+body {
+    margin: 0px;
+    background: #cdcdcd;
+}
+
+.main {
+    margin: auto;
+    width: 700pt;
+    background: #FFF;
+    min-height: 400pt;
+}
+
+p,ul,ol,li,h1,h2,h3,h4,h5,h6 { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 32pt;
+}
+
+h2 {
+    font-size: 16pt;
+}
+
+p {
+    margin-top: 5pt;
+}
+
+.regular-content {
+    padding: 15pt;
+}
+
+.top-close {
+    margin-top: 0px;
+}
+
+.bottom-close {
+    margin-bottom: 0px;
+}
+
+.green-colored {
+    color: rgb(71, 219, 71);
+}
+
