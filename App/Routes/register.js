@@ -1,17 +1,14 @@
+/*
 //Логика регистрации
 
 //Зависимости
-const fs = require('fs');
-var bodyParser = require("body-parser");
-var MongoClient = require("mongodb").MongoClient;
+const bodyParser = require("body-parser");
+const MongoClient = require("mongodb").MongoClient;
 
 
 //Функция
 exports.register = function(request,response) {
     if(!request.body) return response.sendStatus(400);
-
-    lastId = parseInt(fs.readFileSync("lastId", "utf8"));
-    lastId++;
  
     var UserObj = {
       Id : lastId,
@@ -44,8 +41,7 @@ exports.register = function(request,response) {
      });
      db.close();
    })
- 
-   fs.writeFileSync("lastId", lastId);
+
  
     console.log(request.body["FirstName"]);
  
@@ -55,4 +51,4 @@ exports.register = function(request,response) {
    };
  
    response.send(JSON.stringify(res));
- }
+ }*/
