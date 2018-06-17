@@ -1,31 +1,49 @@
-const url = "mongodb://localhost:27017/";
+const url = "mongodb://localhost:27017";
 const mongoClient = require("mongodb").MongoClient;
+const dbName = "EzChatServer";
 
-/**
- * @return {boolean}
- */
 function RegisterUser(login, passwordHash) {
     let resultState = false;
-    mongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
+    let errorReason = "Server error";
+    let errorType = 2;
 
-        const db = client.db("EzChatServer");
+    mongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
+
+        const db = client.db(dbName);
+        console.log("asdasd");
         const UsersColl = db.collection("users");
-        let user = {login: login, passwordHash: passwordHash};
-        UsersColl.insertOne(user, (err, result) => {
-            console.log("sad");
-            if (err) {
-                return console.log(err);
-            }
-            resultState = true;
-            console.log("wow");
+        console.log("asdasd");
+        let user = {
+            Login: login,
+            PasswordHash: passwordHash,
+            IsBlocked: false
+        };
 
+        UsersColl.insertOne(user, function (err, result) {
+            if (err) {
+                console.log("I AM HERE2");
+                errorReason = "Already exists";
+                errorType = 1;
+                return err;
+            }
+            console.log("I AM HERE");
+            resultState = true;
+            errorReason = "";
+            errorType = 0;
+            return result;
         });
         client.close();
     });
-    return resultState;
+    return {
+        IsRegistered: resultState,
+        ErrorReason: errorReason,
+        ErrorType: errorType
+    }
 }
 
-if (RegisterUser("dasd", "dasd")) console.log("sucess");
-if (RegisterUser("dasd", "dasdsad")) {
-    console.log("sucess");
-}
+
+let a = RegisterUser("dasdasd", "sdfghjklhg");
+console.log(a);
+let b = RegisterUser("dasdghjhgh", "sdfghjklhg");
+console.log(b);
+
