@@ -13,8 +13,8 @@ app.get("/", function(request, response){
     response.sendfile("./App/Pages/debug.html");
 });
 
-app.get("/App/Styles/style.css", function (request, response) {
-    response.sendfile("./App/Styles/style.css");
+app.get("/Styles/style.css", function (request, response) {
+    response.sendfile("./app/Styles/style.css");
 });
 
 app.post("/login", jsonParser, login.login);
