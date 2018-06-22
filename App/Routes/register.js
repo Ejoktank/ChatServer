@@ -1,21 +1,21 @@
 //Логика регистрации
 
 //Зависимости
-const MongoClient = require("mongodb").MongoClient;
-
+const mongoClient = require("mongodb").MongoClient;
+const mongoUrl = "mongodb://localhost:27017/";
 //Функция
 exports.register = function (request, response) {
     if (!request.body) return response.sendStatus(400);
 
     let newUser = {
-        Login: request.body["Login"],
-        PasswordHash: request.body["PasswordHash"],
-        FirstName: request.body["FirstName"],
-        LastName: request.body["LastName"],
-        UserName: request.body["UserName"]
+        Login: request.query["Login"],
+        PasswordHash: request.query["PasswordHash"],
+        FirstName: request.query["FirstName"],
+        LastName: request.query["LastName"],
+        UserName: request.query["UserName"]
     };
 
-    MongoClient.connect("mongodb://localhost:27017/", function (err, client) {
+    mongoClient.connect(mongoUrl, {useNewUrlParser: true}, function (err, client) {
         if (err) throw err;
         let db = client.db("ezWebChat");
         db.collection("Users").insertOne(newUser, function (err, res) {
@@ -32,7 +32,7 @@ exports.register = function (request, response) {
                 };
             }
             response.send(JSON.stringify(registerResponse));
-            db.close();
+            client.close();
         });
 
     });

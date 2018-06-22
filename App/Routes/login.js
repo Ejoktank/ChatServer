@@ -1,11 +1,11 @@
-const MongoClient = require("mongodb");
-
+const mongoClient = require("mongodb");
+const mongoUrl = "mongodb://localhost:27017/";
 exports.login = function (request, response) {
     if (!request.body) return response.sendStatus(400);
 
-    MongoClient.connect("mongodb://localhost:27017/", function (err, db) {
+    mongoClient.connect(mongoUrl, {useNewUrlParser: true}, function (err, client) {
         if (err) throw err;
-        db = db.db("ezWebChat");
+        let db = client.db("ezWebChat");
         let AuthInfo = {
             Login: request.body["Login"],
             PasswordHash: request.body["PasswordHash"]
@@ -33,7 +33,7 @@ exports.login = function (request, response) {
                 }
             }
             response.send(JSON.stringify(authResponse));
-            db.close();
+
         });
     })
 };
